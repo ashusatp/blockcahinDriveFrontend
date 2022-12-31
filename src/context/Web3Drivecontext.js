@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ethers } from "ethers";
 import {contractAddress,contractABI} from './contractDetails';
-import { getContractAddress } from "ethers/lib/utils";
-
 
 
 //--- Fetch smart Contract
@@ -40,13 +38,17 @@ export const Web3DriveProvider = ({children}) =>{
                 method: "eth_accounts"
             });
 
+            window.ethereum.on("accountsChanged", () => {
+                checkIfWalletConnected();
+            });
+
             if(accounts.length){
                 setAccount(accounts[0]);
             }else{
                 console.log("No account found");
             }
         }catch(error){
-            console.log("Something wrong while connecting to wallet");
+            console.log("Something went wrong while connecting to wallet");
         }
     }
 
@@ -66,12 +68,8 @@ export const Web3DriveProvider = ({children}) =>{
     }
 
     useEffect(()=>{
-        window.ethereum.on("accountsChanged", () => {
-            connectwallet();
-        });
         const contract = connectWithSmartContract();
         setContract(contract);
-        console.log(contract);
     },[]);
 
     return(
