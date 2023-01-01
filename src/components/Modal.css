@@ -1,0 +1,105 @@
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.19);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.modal-section{
+    padding: 2rem;
+    background-color: rgb(116, 116, 116);
+    height: 50%;
+    width: 50%;
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 0.5rem .1rem rgb(0, 247, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.closeModal{
+  position: absolute;
+  top: 7.5rem;
+  box-shadow: 0rem 0rem 0.5rem .1rem rgb(0, 247, 255);
+  color: rgb(196, 196, 196);
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.givingAccess{
+    background: transparent;
+    height: 30px;
+    color: aliceblue;
+    font-size: medium;
+    box-shadow: 0rem 0rem 0.5rem .1rem rgb(0, 247, 255);
+    border-radius: 0.5rem;
+    border: none;
+    outline:none;
+}
+.givingAccess:active{
+    border: none;
+    outline:none;
+}
+
+.access-btn{
+    height: 40px;
+    width: 100px;
+    border: none;
+    background-color: rgb(0, 247, 255);
+    border-radius: 2rem;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.access-btn:hover{
+    background-color: rgb(28, 151, 155);
+    color: aliceblue;
+    box-shadow: 0rem 0rem 0.5rem .1rem rgb(0, 247, 255);
+}
+.r-access-btn{
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: rgb(255, 0, 0);
+    border-radius: 2rem;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.r-access-btn:hover{
+    background-color: rgb(176, 46, 46);
+    color: aliceblue;
+    box-shadow: 0rem 0rem 0.5rem .1rem rgb(234, 131, 131);
+}
+
+
+
+#selectAdd{
+    width: 200px;
+    height: 30px;
+    background:transparent;
+    color: white;
+    box-shadow: 0rem 0rem 0.5rem .1rem rgb(0, 247, 255);
+    border-radius: 0.5rem;
+    border: none;
+    outline:none;
+}
+.address-Access{
+    font-size:medium;
+    background:black;
+    color: white;
+}

@@ -1,3 +1,12 @@
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background-color: #61dafb;
+}
 .App {
   text-align: center;
   color: aliceblue;
@@ -5,6 +14,24 @@
 
 .heading{
   color: #61dafb;
+}
+
+.share{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height:50px;
+  width: 50px;
+  cursor: pointer;
+  color: aliceblue;
+  border: none;
+  background-color: rgb(174, 0, 255); 
+  border-radius: 2rem;  
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+.share:hover{
+  background-color: rgb(117, 0, 172); 
 }
 
 .btn{

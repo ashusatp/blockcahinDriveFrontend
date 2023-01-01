@@ -42,9 +42,12 @@ const FileUpload = () => {
 
         setblockChainUpload(true);
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
-        await contract.addURL(account, ImgHash);
+        const sendingURL = await contract.addURL(account, ImgHash);
+        await sendingURL.wait();
         setblockChainUpload(false);
+
         alert("Image uploaded Successfully");
+        window.location.reload();
       } catch (err) {
         console.log(err);
         console.log("Getting error while uploading image");

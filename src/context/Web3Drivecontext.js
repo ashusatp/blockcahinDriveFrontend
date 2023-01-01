@@ -39,7 +39,7 @@ export const Web3DriveProvider = ({children}) =>{
             });
 
             window.ethereum.on("accountsChanged", () => {
-                checkIfWalletConnected();
+                window.location.reload();
             });
 
             if(accounts.length){
