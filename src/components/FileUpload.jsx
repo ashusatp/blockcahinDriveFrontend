@@ -4,13 +4,17 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 const FileUpload = () => {
+  //---useContext
   const { contract, account } = useContext(Web3DriveContext);
+
+  //---useStates
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [blockChainUpload,setblockChainUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [blockChainUpload,setblockChainUpload] = useState(false);
 
+  //-Logic for uploading images on IPFS and blockchain
   const upload = async (e) => {
     setError(false);
     e.preventDefault();
@@ -19,9 +23,7 @@ const FileUpload = () => {
         //creating a formdata and storing clientside uploaded file 
         const formData = new FormData();
         formData.append("file", selectedFile);
-
         setLoading(true);
-
         //uploading on ipfs
         const resFile = await axios({
           method: "post",
@@ -33,19 +35,14 @@ const FileUpload = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-
-
         setLoading(false);
         setSelectedFile(null);
         setSelectedFileName(null);
-
-
-        setblockChainUpload(true);
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
         const sendingURL = await contract.addURL(account, ImgHash);
+        setblockChainUpload(true);
         await sendingURL.wait();
         setblockChainUpload(false);
-
         alert("Image uploaded Successfully");
         window.location.reload();
       } catch (err) {
@@ -55,6 +52,7 @@ const FileUpload = () => {
       }
     }
   };
+
   return (
     <div className="wrapper">
       {!loading && !blockChainUpload && !error ? (

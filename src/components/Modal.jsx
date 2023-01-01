@@ -3,12 +3,17 @@ import React, {useEffect, useState, useContext } from "react";
 import "./Modal.css";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 const Modal = ({ closeModal }) => {
+  //---useContext
   const { contract } = useContext(Web3DriveContext);
-  const [addressToGiveAccess, setAddressToGiveAccess] = useState("");
-  const [accessLoading, setAccessLoading] = useState(false);
+
+  //---useStates
   const [removeAccessLoading, setRemoveAccessLoading] = useState(false);
+  const [accessLoading, setAccessLoading] = useState(false);
   const [userHaveAccess, setUserHaveAccess] = useState([]);
+  const [addressToGiveAccess, setAddressToGiveAccess] = useState("");
   const [addressToRemoveAccess, setAddressToRemoveAccess]= useState("");
+
+  //--- Logic for giving access to the user
   const giveAccess = async () => {
     try {
       const access = await contract.giveAccess(addressToGiveAccess);
@@ -16,22 +21,13 @@ const Modal = ({ closeModal }) => {
       await access.wait();
       setAccessLoading(false);
       setAddressToGiveAccess("");
+      closeModal();
     } catch (err) {
       console.log("Error while giving access to the user");
     }
   };
-  const getAccessList= async() =>{
-    try {
-      const AccessList = await contract.shareAccess();
-      const ActualList = AccessList.filter((user)=>{
-        return user.access === true;
-      });
-      setUserHaveAccess(ActualList);
-      console.log(AccessList);
-    } catch (err) {
-      console.log("Error while fetching access list");
-    }
-  }
+  
+  //--- Logic for removing access from user
   const removeAccess = async() =>{
     try {
       const removeAccess = await contract.removeAccess(addressToRemoveAccess);
@@ -45,9 +41,23 @@ const Modal = ({ closeModal }) => {
     }
   }
 
+  //---useEffect
   useEffect(()=>{ 
+    //---getAccessList
+    const getAccessList= async() =>{
+      try {
+        const AccessList = await contract.shareAccess();
+        const ActualList = AccessList.filter((user)=>{
+          return user.access === true;
+        });
+        setUserHaveAccess(ActualList);
+        console.log(AccessList);
+      } catch (err) {
+        console.log("Error while fetching access list");
+      }
+    }
     getAccessList();
-  },[]);
+  },[contract,userHaveAccess]);
 
   return (
     <div className="modal">
