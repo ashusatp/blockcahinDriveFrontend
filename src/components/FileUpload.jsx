@@ -9,16 +9,20 @@ const FileUpload = () => {
   const [selectedFileName, setSelectedFileName] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [blockChainUpload,setblockChainUpload] = useState(false);
 
   const upload = async (e) => {
     setError(false);
     e.preventDefault();
     if (selectedFile) {
       try {
+        //creating a formdata and storing clientside uploaded file 
         const formData = new FormData();
         formData.append("file", selectedFile);
 
         setLoading(true);
+
+        //uploading on ipfs
         const resFile = await axios({
           method: "post",
           url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
@@ -29,13 +33,20 @@ const FileUpload = () => {
             "Content-Type": "multipart/form-data",
           },
         });
+
+
         setLoading(false);
+        setSelectedFile(null);
+        setSelectedFileName(null);
+
+
+        setblockChainUpload(true);
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
         await contract.addURL(account, ImgHash);
+        setblockChainUpload(false);
         alert("Image uploaded Successfully");
-        setSelectedFile(null);
-        selectedFileName(null);
       } catch (err) {
+        console.log(err);
         console.log("Getting error while uploading image");
         setError(true);
       }
@@ -43,7 +54,7 @@ const FileUpload = () => {
   };
   return (
     <div className="wrapper">
-      {!loading ? (
+      {!loading && !blockChainUpload && !error ? (
         <div className="container">
           <form className="form">
             <label htmlFor="file-upload" className="choose">
@@ -67,17 +78,20 @@ const FileUpload = () => {
         </div>
       ) : (
         <div className="container">
-          {error ? (
+          {error && !loading && !blockChainUpload ? (
             <div className="error">
               <NewReleasesIcon className="errorIcon" style={{ fontSize: 80 }} />
               <h2>Getting error while uploading image</h2>
             </div>
-          ) : (
+          ) : loading && !error && !blockChainUpload ? (
             <div className="loading">
               <div className="loader"></div>
               <h4>Uploading on IPFS</h4>
             </div>
-          )}
+          ) :<div className="loading">
+              <div className="loader"></div>
+              <h4>Uploading on Blockchain</h4>
+            </div>}
         </div>
       )}
     </div>
