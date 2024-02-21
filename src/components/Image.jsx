@@ -3,9 +3,9 @@ import "./Image.css";
 const Image = ({ url }) => {
   return (
     <div className="image-container">
-      <a href={`https://gateway.pinata.cloud/ipfs/${url.substring(6)}`}>
+      <a href={`https://azure-wee-clownfish-885.mypinata.cloud/ipfs${url.substring(6)}`}>
         <img
-          src={`https://gateway.pinata.cloud/ipfs/${url.substring(6)}`}
+          src={`https://azure-wee-clownfish-885.mypinata.cloud/ipfs${url.substring(6)}`}
           alt="asserts"
           className="image"
         />

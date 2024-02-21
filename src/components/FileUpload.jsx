@@ -10,7 +10,7 @@ const FileUpload = () => {
   //---useStates
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [blockChainUpload,setblockChainUpload] = useState(false);
+  const [blockChainUpload, setblockChainUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState(null);
 
@@ -20,7 +20,7 @@ const FileUpload = () => {
     e.preventDefault();
     if (selectedFile) {
       try {
-        //creating a formdata and storing clientside uploaded file 
+        //creating a formdata and storing clientside uploaded file
         const formData = new FormData();
         formData.append("file", selectedFile);
         setLoading(true);
@@ -30,8 +30,9 @@ const FileUpload = () => {
           url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
           data: formData,
           headers: {
-            pinata_api_key: `9535e95c53cb2c80bc8d`,
-            pinata_secret_api_key: `656190a038de9840ef608f085c9b6027b29c9c35d0ad20aa7157fc4bcf113932`,
+            pinata_api_key: `0807e8eac5962baf6878`,
+            pinata_secret_api_key: `
+            ae5a1ab8419a3cc2c7550dd01f72ee967ce1067c96fb34c2e60995858f902b0b`,
             "Content-Type": "multipart/form-data",
           },
         });
@@ -89,10 +90,12 @@ const FileUpload = () => {
               <div className="loader"></div>
               <h4>Uploading on IPFS</h4>
             </div>
-          ) :<div className="loading">
+          ) : (
+            <div className="loading">
               <div className="loader"></div>
               <h4>Uploading on Blockchain</h4>
-            </div>}
+            </div>
+          )}
         </div>
       )}
     </div>
